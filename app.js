@@ -1,3 +1,11 @@
+const buttons = [
+  'All',
+  'Breakfast',
+  'Lunch',
+  'Shakes',
+  'Dinner'
+]
+
 // items
 const menu = [
     {
@@ -75,3 +83,106 @@ const menu = [
 ];
 
 
+//to display card
+function itemTemplate(item){
+    // const article = document.createElement('article')
+    // article.classList.add('menu-item')
+    // article.innerHTML = `
+    //   <img class="menu-item__photo" src="${item.img}" alt="burger image">
+    //   <div class="item-info">
+    //       <header>
+    //           <h4>${item.title}</h4>
+    //           <h4 class="price">$${item.price}</h4>
+    //       </header>
+    //       <p class="item-text">${item.desc}</p>
+    //   </div>
+    // `
+    // return article
+    //when I use template strings ``, I can use it dinamic.
+    return `
+      <article class="menu-item">
+        <img class="menu-item__photo" src="${item.img}" alt="burger image">
+        <div class="item-info">
+            <header>
+                <h4>${item.title}</h4>
+                <h4 class="price">$${item.price}</h4>
+            </header>
+            <p class="item-text">${item.desc}</p>
+        </div>
+      </article>
+    `
+}
+
+
+// inicio tentando adicionar os botoes dinamicamente
+
+function buttonTemplate(btn){
+  return `<button id='${btn}' class='btn'> ${btn} </button>`
+}
+console.log('button template', buttonTemplate())
+
+
+function renderButtons(){
+  const buttonsContainer = document.getElementById('btns-container')
+  //do I need to put an empty string here?
+  buttonsContainer.innerHTML = ''
+  buttons.forEach((btn) => {
+    //console.log(btn)
+    const htmlBtn = console.log(buttonTemplate(btn))
+    buttonsContainer.innerHTML += htmlBtn
+    //console.log(htmlBtn)
+  })
+}
+//renderButtons(buttons)
+// fim da logica
+
+function itemNotFoundTemplate(){
+  return `
+    <h4 class="empty-search">No items matched your search</h4>
+  `
+}
+
+// percorrer o array de menu e para cada item do array chamar a função cardTemplate
+// e depois vamos adicionar o resultado no elemento com a classe menu-items
+function renderItems(items){
+  const menuItems = document.getElementById('menu-items')
+  menuItems.innerHTML = ''
+
+  if (items.length === 0){
+    menuItems.innerHTML = itemNotFoundTemplate()      
+  } 
+  else {
+    items.forEach( item => {
+      const html = itemTemplate(item)
+      //append tenho que adicionar um elemento e nao string
+      //entao eu posso adicionar uma string no html
+      menuItems.innerHTML += html
+    })
+  }
+}
+
+//returns a node object or a node list (querySelectorAll), which is an arraylkie object, we can use forEach
+//HTMLcolletction (getElementsByTheTagName) podemos manipular index e lenght, but not array maethods (forEach)
+//every time that I assing an element to a variable I have access to a node object
+//vamos selecionar os botoes e percorrer a lista de botoes 
+const btns = document.querySelectorAll('button');
+//loop no nodelist, so com forEach
+btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // filtrar a lista de menu com base no texto do botao
+      const category = btn.textContent.toLocaleLowerCase()
+      if (category === 'all'){
+        renderItems(menu)
+        return
+      }
+
+      const filteredMenu = menu.filter(item => item.category === category)
+      renderItems(filteredMenu)
+    })
+})
+
+//iniciar a pagina com todos os items
+
+renderButtons(buttons)
+
+renderItems(menu)
