@@ -1,3 +1,5 @@
+ import './cart/cart.js'
+
 const buttons = [
   'All',
   'Breakfast',
@@ -101,40 +103,23 @@ function itemTemplate(item){
     //when I use template strings ``, I can use it dinamic.
     return `
       <article class="menu-item">
-        <img class="menu-item__photo" src="${item.img}" alt="burger image">
+        <div>
+          <img class="menu-item__photo" src="${item.img}" alt="burger image">
+          <button class="add-to-cart" data-id="${item.id}" data-price="${item.price}" data-name="${item.name}">Add to cart</button>
+        </div>
+        
         <div class="item-info">
             <header>
                 <h4>${item.title}</h4>
                 <h4 class="price">$${item.price}</h4>
             </header>
             <p class="item-text">${item.desc}</p>
+            
         </div>
       </article>
     `
 }
 
-
-// inicio tentando adicionar os botoes dinamicamente
-
-function buttonTemplate(btn){
-  return `<button id='${btn}' class='btn'> ${btn} </button>`
-}
-console.log('button template', buttonTemplate())
-
-
-function renderButtons(){
-  const buttonsContainer = document.getElementById('btns-container')
-  //do I need to put an empty string here?
-  buttonsContainer.innerHTML = ''
-  buttons.forEach((btn) => {
-    //console.log(btn)
-    const htmlBtn = console.log(buttonTemplate(btn))
-    buttonsContainer.innerHTML += htmlBtn
-    //console.log(htmlBtn)
-  })
-}
-//renderButtons(buttons)
-// fim da logica
 
 function itemNotFoundTemplate(){
   return `
@@ -161,16 +146,43 @@ function renderItems(items){
   }
 }
 
+
+// inicio tentando adicionar os botoes dinamicamente
+
+function buttonTemplate(btn){
+  return `<button id='${btn}' class='filter-btn'>${btn}</button>`
+}
+console.log('button template', buttonTemplate())
+
+
+function renderButtons(){
+  const buttonsContainer = document.getElementById('btns-container')
+  //do I need to put an empty string here?
+  //buttonsContainer.innerHTML = ''
+  buttons.forEach((btn) => {
+    //console.log(btn)
+    const htmlBtn = buttonTemplate(btn)
+    buttonsContainer.innerHTML += htmlBtn
+    
+  })
+}
+
+renderButtons(buttons)
+
+
+// fim da logica
+
+
 //returns a node object or a node list (querySelectorAll), which is an arraylkie object, we can use forEach
 //HTMLcolletction (getElementsByTheTagName) podemos manipular index e lenght, but not array maethods (forEach)
 //every time that I assing an element to a variable I have access to a node object
 //vamos selecionar os botoes e percorrer a lista de botoes 
-const btns = document.querySelectorAll('button');
+const btns = document.querySelectorAll('.filter-btn');
 //loop no nodelist, so com forEach
 btns.forEach(btn => {
     btn.addEventListener('click', () => {
       // filtrar a lista de menu com base no texto do botao
-      const category = btn.textContent.toLocaleLowerCase()
+      const category = btn.textContent.toLocaleLowerCase().trim()
       if (category === 'all'){
         renderItems(menu)
         return
@@ -183,6 +195,8 @@ btns.forEach(btn => {
 
 //iniciar a pagina com todos os items
 
-renderButtons(buttons)
 
 renderItems(menu)
+
+
+

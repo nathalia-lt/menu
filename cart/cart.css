@@ -1,0 +1,63 @@
+/* cart modal */
+
+.cart-icon{
+    width: 2rem;
+    cursor: pointer;
+}
+
+.cart-btn{
+    margin: 10rem;
+}
+
+.cart-container{
+    position: absolute;
+    right: 2%;
+    margin: 15px;
+    /*  transfomr used to hide the menu by default */
+    /* y- sobe desce, x- direito e esquerdo */
+    /* menos e pra cima,estou subindo 100 */
+    transform: translateX(-100%);
+    transition: transform ease-in-out 0.3s;
+    /* do I need to use z-index */
+    background-color: lightgray;
+}
+
+
+
+.modal-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 10;
+    background-color: #000c;
+    right: 0;
+    transform: translateX(100%);
+    transition: transform ease-in-out 0.9s;
+
+}
+
+.show-cart{
+    /* it is going to make my menu slide when I add show-cart class */
+    transform: translateX(0);
+}
+
+.modal-content{
+    background-color: #fff;
+    width: 50vw;
+    height: 80vh;
+    z-index: 16;
+    position: absolute;
+    left: 25vw;
+    top: 10vh;
+}
+
+.close-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.close-btn svg{
+    width: 2rem;
+    height: 2rem;
+}
