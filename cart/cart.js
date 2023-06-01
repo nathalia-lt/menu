@@ -1,36 +1,116 @@
-
+import { getFromStorage, setToStorage } from "../services/localStorage.js"
 // variables
 
-const cartBtn = document.getElementById('cart-btn')
-const modalContainer = document.getElementById('modal-container')
-const modalContent = document.getElementById('modal-content')
-const closeBtn = document.querySelector('.close-btn')
-let cartList = []
-export {cartList}
+function initCart() {
 
-console.log(cartList)
+    const cartBtn = document.getElementById('cart-btn')
+    const modalContainer = document.getElementById('modal-container')
+    const modalContent = document.getElementById('modal-content')
+    const closeBtn = document.querySelector('.close-btn')
+
+
+    let cartList = getFromStorage('cart') || []
+    console.log('Carregou o cart.js')
+
+
+    const btnsAddCart = document.querySelectorAll('.add-to-cart')
+    //coloco na minha array(cart), as meals que eu quero
+
+    btnsAddCart.forEach(btnAddCart => {
+        btnAddCart.addEventListener('click', () =>{
+            //abaixo eu to transformando o meu dataSet (DOM string map) into an object
+                const btnAddCartObj = {...btnAddCart.dataset}
+                const hasItem = cartList.filter(item => {
+                    return item.id === btnAddCartObj.id
+                })
+                if (hasItem[0]){
+                    const index = cartList.findIndex(item => item.id === hasItem[0].id)
+                    console.log(index)
+                    cartList[index].quantity += 1
+                    
+                } else {
+                    const toBeAdded = {...btnAddCartObj, quantity: 1}
+                    cartList.push(toBeAdded)
+                }
+                setToStorage('cart', cartList)
+                
+                console.log(cartList)
+        })
+    })
+
 function listTemplate(meal){
-    return `<li>oi</li>`
-    
+    return `
+    <li>${meal.name} - <button> - </button>(${meal.quantity})<button> + </button>  ${meal.price} 
+        <button class="removeBtn" data-id="${meal.id}" >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
+            </svg>
+        </button> 
+    </li>    
+    `
 }
 
+function noItemsTemplate(){
+    return `<p>There are no items in your cart</p>`
+}
 
-function renderList(meals){
+function totalTemplate(total){
+    return `<strong>Total:</strong> $ ${total}`
+}
+
+function totalSum(meals){
+    let sum = 0
+    meals.forEach(meal => {
+        //parseFloat para ser um numero e nao concatenar string
+        sum += parseFloat(meal.price) * meal.quantity
+    })
+    //quando eu uso to toFixed retorna uma string
+    return sum.toFixed(2)
+}
+
+function renderCart(meals, total){
+    console.log(meals)
     const listContainer = document.getElementById('list-container')
+    const totalCart = document.getElementById('total-cart')
     //below, it clears the list before updating them
     listContainer.innerHTML = ''
     if (meals.length === 0){
         // modalContent.innerHTML = listTemplate()
-        listContainer.innerHTML = listTemplate()
+        listContainer.innerHTML = noItemsTemplate()
     }
     else {
         meals.forEach(meal => {
             const html = listTemplate(meal)
+            //estou somando ao que ja tem
             listContainer.innerHTML += html
             // modalContent.innerHTML += html
+            
         });
     }
+    totalCart.innerHTML = totalTemplate(total)
+
+    //removeBtns
+    const removeBtns = document.querySelectorAll('.removeBtn')
+    removeBtns.forEach(removeBtn => {
+        removeBtn.addEventListener('click', () => {
+            const idToBeRemoved = removeBtn.dataset.id
+            cartList = cartList.filter(item => item.id !== idToBeRemoved)
+            setToStorage('cart', cartList)
+            renderCart(cartList, totalSum(cartList))
+        })
+    })
+
+    //increaseBtns
+    //const idToBeIncreased = increaseBtn.dataset.id
+    // const index = cartList.findIndex(item => item.id === idToBeIncreased)
+    // cartList[index].quantity += 1
+
+
+    //decreaseBtns
 }
+
+
+
 
 
 //eu tennho uma array que e uma lista e agora eu preciso mostrar essa lista
@@ -38,7 +118,9 @@ function renderList(meals){
 
 cartBtn.addEventListener('click', (e) => {
     modalContainer.classList.add('show-cart')
-    //console.log(cartList)
+    //a hora que eu clico no botao eu renderizo a lista
+    
+    renderCart(cartList, totalSum(cartList))
 
 })
 
@@ -57,12 +139,10 @@ modalContainer.addEventListener('click', (e) =>{
 modalContent.addEventListener('click', (e) =>{
     //pq o modalContent esta dentro do container, ele responde to the event
     //mas nao queremos que o evento aconteca no content. Entao paramos a propagacao
-    console.log(e)
     e.stopPropagation()
 })
 
-renderList(cartList)
-
+console.log('Terminour de carregar o cart.js')}
 //aqui eu quero selecionar meals atraves do add-to-cart button to my cart
 //para eu ler as data que coloquei no meu botao eu acesso atravez do dataset
 //que fica em formato de objeto
@@ -74,3 +154,5 @@ renderList(cartList)
 // para ler o que está no data-id do botao utilize as proprieades do dataset
 //tenho que colocar numa array todos os item que foram clicados
 //depois coloco essas informacoes no event listener do show cart
+
+export {initCart}

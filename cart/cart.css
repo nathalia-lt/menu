@@ -49,12 +49,14 @@
     position: absolute;
     left: 25vw;
     top: 10vh;
+    overflow-y: auto;
 }
 
 .close-btn{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10%;
+    right: 25%;
+    z-index: 20;
 }
 
 .close-btn svg{
@@ -62,16 +64,34 @@
     height: 2rem;
 }
 
+ul{
+    margin-top: 2.3rem;
+}
+
 li{ 
-    width: 18vw; 
-    height: 4vw; 
     list-style: none; 
     background-color: salmon; 
     border-radius: 10px; 
-    margin: 2rem; 
-    padding: 0.2rem; 
+    margin: 1rem; 
+    padding: 0.5rem 1rem; 
     color: white; 
     display: flex; 
-    justify-content: center; 
+    justify-content: space-between; 
     align-items: center; 
 } 
+
+
+.removeBtn{
+    z-index: 20;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ffff
+    ;
+}
+
+.removeBtn svg{
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
