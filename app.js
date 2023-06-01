@@ -1,4 +1,5 @@
- import './cart/cart.js'
+import './cart/cart.js'
+import { cartList } from './cart/cart.js';
 
 const buttons = [
   'All',
@@ -105,7 +106,7 @@ function itemTemplate(item){
       <article class="menu-item">
         <div>
           <img class="menu-item__photo" src="${item.img}" alt="burger image">
-          <button class="add-to-cart" data-id="${item.id}" data-price="${item.price}" data-name="${item.name}">Add to cart</button>
+          <button class="add-to-cart" data-id="${item.id}" data-price="${item.price}" data-name="${item.title}">Add to cart</button>
         </div>
         
         <div class="item-info">
@@ -119,6 +120,8 @@ function itemTemplate(item){
       </article>
     `
 }
+
+
 
 
 function itemNotFoundTemplate(){
@@ -147,12 +150,9 @@ function renderItems(items){
 }
 
 
-// inicio tentando adicionar os botoes dinamicamente
-
 function buttonTemplate(btn){
   return `<button id='${btn}' class='filter-btn'>${btn}</button>`
 }
-console.log('button template', buttonTemplate())
 
 
 function renderButtons(){
@@ -169,8 +169,6 @@ function renderButtons(){
 
 renderButtons(buttons)
 
-
-// fim da logica
 
 
 //returns a node object or a node list (querySelectorAll), which is an arraylkie object, we can use forEach
@@ -198,5 +196,31 @@ btns.forEach(btn => {
 
 renderItems(menu)
 
+// ------------------------------------------------------
+
+//ADDING MEALS TO MY CART
+
+//aqui eu quero selecionar meals atraves do add-to-cart button to my cart
+//para eu ler as data que coloquei no meu botao eu acesso atravez do dataset
+//que fica em formato de objeto
+
+const btnsAddCart = document.querySelectorAll('.add-to-cart')
 
 
+//coloco na minha array(cart), as meals que eu quero
+btnsAddCart.forEach(btnAddCart => {
+  btnAddCart.addEventListener('click', () =>{
+        //abaixo eu to transformando o meu dataSet (DOM string map) into an object
+          const btnAddCartObj = {...btnAddCart.dataset}
+          cartList.push(btnAddCartObj)
+          console.log(cartList)
+        })
+      })
+
+
+//adicionar numa array de objetos
+//[{name:..., price:...}, {}, {}]
+
+// para ler o que está no data-id do botao utilize as proprieades do dataset
+//tenho que colocar numa array todos os item que foram clicados
+//depois coloco essas informacoes no event listener do show cart

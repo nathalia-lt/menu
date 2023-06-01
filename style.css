@@ -21,15 +21,6 @@ h2{
 
 
 
-/* .btn{
-    background: transparent;
-    color: var(--clr-black);
-    padding: 0.375rem 0.75rem;
-    display: inline-block;
-    font-size: 0.875rem;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-} */
 
 main {
     min-height: 100vh;
@@ -61,11 +52,10 @@ article.menu-item{
 
 .title{
     text-align: center;
-    margin-bottom: 1.8rem;
 }
 
 .btns-container {
-    margin-bottom: 4rem;
+    margin-bottom: 1.5rem;
     display: flex;
     justify-content: center;
 }

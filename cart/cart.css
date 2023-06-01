@@ -61,3 +61,17 @@
     width: 2rem;
     height: 2rem;
 }
+
+li{ 
+    width: 18vw; 
+    height: 4vw; 
+    list-style: none; 
+    background-color: salmon; 
+    border-radius: 10px; 
+    margin: 2rem; 
+    padding: 0.2rem; 
+    color: white; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+} 
