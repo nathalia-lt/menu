@@ -15,7 +15,6 @@ const buttons = [
 // items
 
 
-
 //to display card
 function itemTemplate(item){
     // const article = document.createElement('article')
@@ -115,7 +114,6 @@ btns.forEach(btn => {
         renderItems(menu)
         return
       }
-
       const filteredMenu = menu.filter(item => item.category === category)
       renderItems(filteredMenu)
     })

@@ -10,7 +10,7 @@ function initCart() {
 
 
     let cartList = getFromStorage('cart') || []
-    console.log('Carregou o cart.js')
+    //console.log('Carregou o cart.js')
 
 
     const btnsAddCart = document.querySelectorAll('.add-to-cart')
@@ -29,6 +29,7 @@ function initCart() {
                     cartList[index].quantity += 1
                     
                 } else {
+                    // ... indica o que ja esta no objeto e depois da virgula o que eu quero adicionar no meu objeto
                     const toBeAdded = {...btnAddCartObj, quantity: 1}
                     cartList.push(toBeAdded)
                 }
@@ -40,7 +41,7 @@ function initCart() {
 
 function listTemplate(meal){
     return `
-    <li>${meal.name} - <button> - </button>(${meal.quantity})<button> + </button>  ${meal.price} 
+    <li>${meal.name} - <button class="increase-btn" data-id="${meal.id}" > + </button>(${meal.quantity})<button class="decrease-btn" data-id="${meal.id}"> - </button>  $ ${meal.price} 
         <button class="removeBtn" data-id="${meal.id}" >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                 <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
@@ -55,7 +56,11 @@ function noItemsTemplate(){
 }
 
 function totalTemplate(total){
-    return `<strong>Total:</strong> $ ${total}`
+
+    return `
+    <div class="total-container">
+    <strong class= "total-content">Total:  </strong>  $ ${total}
+    </div>`
 }
 
 function totalSum(meals){
@@ -69,7 +74,6 @@ function totalSum(meals){
 }
 
 function renderCart(meals, total){
-    console.log(meals)
     const listContainer = document.getElementById('list-container')
     const totalCart = document.getElementById('total-cart')
     //below, it clears the list before updating them
@@ -101,12 +105,37 @@ function renderCart(meals, total){
     })
 
     //increaseBtns
-    //const idToBeIncreased = increaseBtn.dataset.id
-    // const index = cartList.findIndex(item => item.id === idToBeIncreased)
-    // cartList[index].quantity += 1
+    const increaseBtns = document.querySelectorAll('.increase-btn')
 
+    increaseBtns.forEach(increaseBtn => {
+        increaseBtn.addEventListener('click', (e) =>{
+            console.log('increase bottom', e)
+            const idToBeIncreased = increaseBtn.dataset.id
+            console.log(idToBeIncreased)
+            const index = cartList.findIndex(item => item.id === idToBeIncreased )
+            //pergunta: pq aqui meu index esta retornando zero, mas estou tendo o resultado que eu quero no console.
+            //comecei a ter o resultado depois de renderizar a pagina
+            console.log('index', index)
+            cartList[index].quantity += 1
+            setToStorage('cart', cartList)
+            renderCart(cartList, totalSum(cartList))
+        })
+    })
 
     //decreaseBtns
+    const decreaseBtns = document.querySelectorAll('.decrease-btn')
+    decreaseBtns.forEach(decreaseBtn  => {
+        decreaseBtn.addEventListener('click', () => {
+            const idToBeDecreased = decreaseBtn.dataset.id
+            const index = cartList.findIndex(item => item.id === idToBeDecreased)
+            cartList[index].quantity -= 1
+            setToStorage('cart', cartList)
+            renderCart(cartList, totalSum(cartList))
+        })
+    })
+
+
+
 }
 
 
@@ -125,13 +154,11 @@ cartBtn.addEventListener('click', (e) => {
 })
 
 closeBtn.addEventListener('click', (e) => {
-    console.log('clicou o close')
     e.stopPropagation()
     modalContainer.classList.remove('show-cart')
 })
 
 modalContainer.addEventListener('click', (e) =>{
-    console.log(e)
     modalContainer.classList.remove('show-cart')
 })
 
