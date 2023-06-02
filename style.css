@@ -8,18 +8,15 @@
 body{
     line-height: 1.5;
     font-size: 1rem;
-
+    background-color: rgb(224, 225, 225);
 }
 h2{
     font-size: 3rem;
-    color: rgb(218, 55, 37);
+    color: rgb(244, 72, 53);
 }
 
 
-
 /* menu */
-
-
 
 
 main {
@@ -29,12 +26,10 @@ main {
 }
 
 
-
 /* section */
 section {
     padding: 5rem 0;
 }
-
 
 /* Menu */
 article.menu-item{
@@ -46,12 +41,20 @@ article.menu-item{
 .menu-item{
     display: flex;
     padding: 1rem 0;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     
 }
 
 .title{
     text-align: center;
+}
+
+.underline {
+    width: 5rem;
+    height: 0.25rem;
+    background: black;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .btns-container {
@@ -72,6 +75,24 @@ article.menu-item{
     cursor: pointer;
 }
 .filter-btn:hover {
+    background: lightcoral;
+    color: white;
+
+}
+
+.add-to-cart{
+    margin-left: 3rem;
+    margin-top: 0.4rem;
+    padding: 0.2rem;
+    cursor: pointer;
+    border-radius: 4px;
+    background: transparent;
+    border: 2px solid lightcoral;
+}
+
+.add-to-cart:hover{
+    scale: 1.1;
+    transition: all .5s ease-in-out;
     background: lightcoral;
     color: white;
 }
@@ -95,7 +116,7 @@ section {
     object-fit: cover;
     width: 180px;
     height: 120px;
-    border: 0.25rem solid mediumslateblue;
+    border: 0.20rem solid lightcoral;
     border-radius: 10px;
 }
 

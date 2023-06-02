@@ -128,7 +128,11 @@ function renderCart(meals, total){
         decreaseBtn.addEventListener('click', () => {
             const idToBeDecreased = decreaseBtn.dataset.id
             const index = cartList.findIndex(item => item.id === idToBeDecreased)
-            cartList[index].quantity -= 1
+            if (cartList[index].quantity > 1){
+                cartList[index].quantity -= 1
+            }else{
+
+            }
             setToStorage('cart', cartList)
             renderCart(cartList, totalSum(cartList))
         })
