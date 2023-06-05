@@ -15,6 +15,13 @@ h2{
     color: rgb(244, 72, 53);
 }
 
+h3{
+    line-height: 1.2;
+    text-align: center;
+    margin-top: 1rem;
+    letter-spacing: 0.1rem;
+}
+
 
 /* menu */
 

@@ -1,11 +1,27 @@
 /* cart modal */
 
 .cart-icon{
-    width: 1.7rem;
+    width: 1.6rem;
+}
+
+.cart-item-count{
+    position: absolute;
+    top: -0.85rem;
+    right: -0.85rem;
+    width: 1.60rem;
+    height: 1.60rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: bold;
+    background: lightcoral;
+    display: grid;
+    place-items: center;
 }
 
 button.cart-container{
-    margin: 0.5rem;
+    position: relative;
+    margin-top: 0.75rem;
+    /* margin: 0.5rem; */
     background: none;
     border: none;
     cursor: pointer;
@@ -18,15 +34,14 @@ button.cart-container{
 
 .cart-container{
     position: absolute;
-    right: 2%;
-    margin: 15px;
+    right: 1%;
+    margin: 10px;
     /*  transfomr used to hide the menu by default */
     /* y- sobe desce, x- direito e esquerdo */
     /* menos e pra cima,estou subindo 100 */
     transform: translateX(-100%);
     transition: transform ease-in-out 0.3s;
     /* do I need to use z-index */
-    background-color: lightgray;
 }
 
 
@@ -101,9 +116,16 @@ li{
     height: 1.3rem;
 }
 
+/* .increase-btn-icon{
+
+}
+.decrease-btn-icon{
+
+} */
+
 .increase-btn{
     border-radius: 10%;
-    border: 0.1rem solid white;
+    border: 0.2rem solid white;
     background: white;
 }
 
