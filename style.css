@@ -95,13 +95,19 @@ article.menu-item{
     border-radius: 4px;
     background: transparent;
     border: 2px solid lightcoral;
+    box-shadow: 0 3px #999;
 }
 
 .add-to-cart:hover{
-    scale: 1.1;
-    transition: all .5s ease-in-out;
     background: lightcoral;
     color: white;
+    outline: none;
+}
+
+.add-to-cart:active{
+    background-color: rgb(180, 95, 95);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 section {
