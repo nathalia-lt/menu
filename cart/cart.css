@@ -98,12 +98,20 @@ li{
     padding: 0.5rem 1rem; 
     color: white; 
     display: flex; 
-    justify-content: space-between; 
     align-items: center; 
 } 
 
+.meal-name{
+    flex: 2;
+}
+
+.meal-price{
+    flex: 1;
+}
+
 
 .removeBtn{
+    flex: 0.3;
     z-index: 20;
     background: transparent;
     border: none;
@@ -124,6 +132,7 @@ li{
 } */
 
 .increase-deacrese-btn-container{
+    flex: 1;
     display: flex;
     align-items: center;
     gap: 0.3rem;
