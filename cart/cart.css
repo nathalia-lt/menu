@@ -33,7 +33,7 @@
 }
 
 .cart-container{
-    position: absolute;
+    position: fixed;
     right: 1%;
     margin: 10px;
     /*  transfomr used to hide the menu by default */
