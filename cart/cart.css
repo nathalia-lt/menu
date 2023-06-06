@@ -18,7 +18,7 @@
     place-items: center;
 }
 
-button.cart-container{
+.cart-btn{
     position: relative;
     margin-top: 0.75rem;
     /* margin: 0.5rem; */
@@ -123,16 +123,29 @@ li{
 
 } */
 
+.increase-deacrese-btn-container{
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+
 .increase-btn{
-    border-radius: 10%;
-    border: 0.2rem solid white;
-    background: white;
+    width: 1.10rem;
+    height: 1.10rem;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
 }
 
 .decrease-btn{
-    border-radius: 10%;
-    border: 0.2rem solid white;
-    background: white;
+    width: 1.10rem;
+    height: 1.10rem;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
 }
 
 .total-container{
