@@ -65,6 +65,7 @@
 
 .modal-content{
     background-color: #fff;
+    border-radius: 10px;
     width: 50vw;
     height: 80vh;
     z-index: 16;
@@ -107,6 +108,10 @@ li{
 
 .meal-price{
     flex: 1;
+}
+
+.no-items-cart{
+    text-align: center;
 }
 
 

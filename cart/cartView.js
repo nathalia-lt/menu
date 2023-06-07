@@ -57,7 +57,7 @@ export default class CartView{
     }
     
     noItemsTemplate(){
-        return `<p>There are no items in your cart</p>`
+        return `<p class="no-items-cart">There are no items in your cart</p>`
     }
     
     totalTemplate(total){
